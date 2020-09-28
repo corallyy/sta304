@@ -41,9 +41,17 @@ resources <- list_package_resources("fc4d95a6-591f-411f-af17-327e6c5d03c7")
 datastore_resources <- filter(resources, tolower(format) %in% c('csv', 'geojson'))
 
 
-```
-
 
 ```
+
+```
+With the boxplot of the rate of every crime, assault cases has the highest rate among all the crimes with the highest mean value ,highest quantities and the widest distribution, and homicide witnessed the lowest rate. The second highest rate is the break and enter crime, namely the burglaries. And the auto theft witnessed the third highest rate among all the crimes. 
+
+change<-subset(data,select = c(13,22,31,40,49,58),skip = 1)
+boxplot(change)
+
+
+
+with the boxplots of the change of every crime in five years, the mean value of change of crime quantities are almost around 0, so the crime cases keep in a certain level, with minor changes. However, some crimes witnessed the increasing more but others are not. In details,  more areas witnessed the increased robberies and theft cases from 2018-2019. By contrast, all the neighborhoods experienced the decreases in homicide. As to auto theft and burglary, the number of  neighborhoods experienced increases and decrease cancel out, so the mean values almost stays at 0. Compared to the previous two crimes, assaults witnessed the smaller distribution, which means the changes among the neighborhoods are similar.
 
 # References

@@ -11,7 +11,7 @@ tags: ["R Markdown", "plot", "regression"]
 
 <div id="part-1-abstraction" class="section level1">
 <h1>Part 1 Abstraction</h1>
-<p>my abstract, We use <span class="citation">Wickham et al. (2019)</span>.
+<p>my abstract, We use <span class="citation">Sharla Gelfand (n.d.)</span>.
 This research is designed to observe which crimes happened most in Toronto and the change rate of crimes.</p>
 </div>
 <div id="part.-2-introduction" class="section level1">
@@ -19,46 +19,50 @@ This research is designed to observe which crimes happened most in Toronto and t
 <p>The data set I used is “Neighborhood crimes rates” . this dataset record the numbers of six kinds of the crimes in different neighborhoods in toronto. These crimes are assault, auto theft, burglary, homicide, robbery and theft. With the different population of different neighborhoods and too many neighborhoods, what I focus on is the average number of different crimes per 100,000 people from 2014 – 2019 and the changing rate from 2018 to 2019 because they have the same assumption. What’s more I use boxplots to compare different crimes because it is clear to observe the mean value and distributions with boxplots.</p>
 <p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
 <p>You can embed an R code chunk like this:</p>
-<pre class="r"><code>summary(cars)
-##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00
-fit &lt;- lm(dist ~ speed, data = cars)
-fit
+<pre class="r"><code>install.packages(&quot;opendatatoronto&quot;)
+## Installing package into &#39;/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0&#39;
+## (as &#39;lib&#39; is unspecified)
+install.packages(&quot;dplyr&quot;)
+## Installing package into &#39;/home/rstudio-user/R/x86_64-pc-linux-gnu-library/4.0&#39;
+## (as &#39;lib&#39; is unspecified)
+
+library(opendatatoronto)
+library(dplyr)
 ## 
-## Call:
-## lm(formula = dist ~ speed, data = cars)
+## Attaching package: &#39;dplyr&#39;
+## The following objects are masked from &#39;package:stats&#39;:
 ## 
-## Coefficients:
-## (Intercept)        speed  
-##     -17.579        3.932</code></pre>
-</div>
-<div id="including-plots" class="section level1">
-<h1>Including Plots</h1>
-<p>You can also embed plots. See Figure <a href="#fig:pie">1</a> for example:</p>
-<pre class="r"><code>par(mar = c(0, 1, 0, 1))
-pie(
-  c(280, 60, 20),
-  c(&#39;Sky&#39;, &#39;Sunny side of pyramid&#39;, &#39;Shady side of pyramid&#39;),
-  col = c(&#39;#0292D8&#39;, &#39;#F7EA39&#39;, &#39;#C4B632&#39;),
-  init.angle = -50, border = NA
-)</code></pre>
-<div class="figure"><span id="fig:pie"></span>
-<img src="/post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png" alt="A fancy pie chart." width="672" />
-<p class="caption">
-Figure 1: A fancy pie chart.
-</p>
-</div>
+##     filter, lag
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union
+
+# get package
+package &lt;- show_package(&quot;fc4d95a6-591f-411f-af17-327e6c5d03c7&quot;)
+package
+## # A tibble: 1 x 10
+##   title id    topics civic_issues excerpt dataset_category num_resources formats
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;                    &lt;int&gt; &lt;chr&gt;  
+## 1 Neig… fc4d… &lt;NA&gt;   &lt;NA&gt;         &lt;NA&gt;    &lt;NA&gt;                         1 &lt;NA&gt;   
+## # … with 2 more variables: refresh_rate &lt;chr&gt;, last_refreshed &lt;date&gt;
+
+# get all resources for this package
+resources &lt;- list_package_resources(&quot;fc4d95a6-591f-411f-af17-327e6c5d03c7&quot;)
+
+# identify datastore resources; by default, Toronto Open Data sets datastore resource format to CSV for non-geospatial and GeoJSON for geospatial resources
+datastore_resources &lt;- filter(resources, tolower(format) %in% c(&#39;csv&#39;, &#39;geojson&#39;))
+</code></pre>
+<p>```
+With the boxplot of the rate of every crime, assault cases has the highest rate among all the crimes with the highest mean value ,highest quantities and the widest distribution, and homicide witnessed the lowest rate. The second highest rate is the break and enter crime, namely the burglaries. And the auto theft witnessed the third highest rate among all the crimes.</p>
+<p>change&lt;-subset(data,select = c(13,22,31,40,49,58),skip = 1)
+boxplot(change)</p>
+<p>with the boxplots of the change of every crime in five years, the mean value of change of crime quantities are almost around 0, so the crime cases keep in a certain level, with minor changes. However, some crimes witnessed the increasing more but others are not. In details, more areas witnessed the increased robberies and theft cases from 2018-2019. By contrast, all the neighborhoods experienced the decreases in homicide. As to auto theft and burglary, the number of neighborhoods experienced increases and decrease cancel out, so the mean values almost stays at 0. Compared to the previous two crimes, assaults witnessed the smaller distribution, which means the changes among the neighborhoods are similar.</p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
 <div id="refs" class="references">
 <div id="ref-citetidyverse">
-<p>Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. “Welcome to the tidyverse.” <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.</p>
+<p>Sharla Gelfand, City of Toronto. n.d. “Welcome to the tidyverse.”</p>
 </div>
 </div>
 </div>
