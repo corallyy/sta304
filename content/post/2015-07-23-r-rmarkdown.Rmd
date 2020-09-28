@@ -1,5 +1,5 @@
 ---
-title: "Sta304 Assignment 1"
+title: "Neighborhood crimes rates observations"
 author: "Yingyu Li"
 date: 2020-09-27T21:13:14-05:00
 bibliography: "References.bib"
@@ -13,36 +13,37 @@ knitr::opts_chunk$set(collapse = TRUE)
 
 # Part 1 Abstraction
 my abstract, We use @citetidyverse.
+This research is designed to observe which crimes happened most in Toronto and the change rate of crimes.
 
 # Part. 2 Introduction 
-My introduction
+  The data set I used is “Neighborhood crimes rates” . this dataset record the numbers of six kinds of the crimes in different neighborhoods in toronto. These crimes are assault, auto theft, burglary, homicide, robbery and theft. With the different population of different neighborhoods and too many neighborhoods, what I focus on is the average number of different crimes per 100,000 people from 2014 – 2019 and the changing rate from 2018 to 2019 because they have the same assumption. What’s more I use boxplots to compare different crimes because it is clear to observe the mean value and distributions with boxplots.
 
-# Part 3 Data Introduction
-Introduce the scenario and the study objective.
-Types of data variable.
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
 You can embed an R code chunk like this:
 
-```{r cars}
-summary(cars)
-fit <- lm(dist ~ speed, data = cars)
-fit
+```{r}
+install.packages("opendatatoronto")
+install.packages("dplyr")
+
+library(opendatatoronto)
+library(dplyr)
+
+# get package
+package <- show_package("fc4d95a6-591f-411f-af17-327e6c5d03c7")
+package
+
+# get all resources for this package
+resources <- list_package_resources("fc4d95a6-591f-411f-af17-327e6c5d03c7")
+
+# identify datastore resources; by default, Toronto Open Data sets datastore resource format to CSV for non-geospatial and GeoJSON for geospatial resources
+datastore_resources <- filter(resources, tolower(format) %in% c('csv', 'geojson'))
+
+
 ```
 
-# Including Plots
 
-You can also embed plots. See Figure \@ref(fig:pie) for example:
-
-```{r pie, fig.cap='A fancy pie chart.', tidy=FALSE}
-par(mar = c(0, 1, 0, 1))
-pie(
-  c(280, 60, 20),
-  c('Sky', 'Sunny side of pyramid', 'Shady side of pyramid'),
-  col = c('#0292D8', '#F7EA39', '#C4B632'),
-  init.angle = -50, border = NA
-)
 ```
 
 # References
